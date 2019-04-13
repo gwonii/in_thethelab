@@ -56,10 +56,37 @@
 | @SafeVarargs         | Suppress warnings for all callers of a method or constructor with a generics varargs parameter, since Java 7. |
 | @FunctionalInterface | Specifies that the type declaration is intended to be a functional interface, since Java 8. |
 
-* 어저구 저쩌구 
+* #### Meta Annotation  (한글)
 
-어쩌구저저쩌구 ..
+Meta Annotation을 활용해 Custom Annotation을 만들 수 있다. 
 
-어쩌구저저꺼구
+| 문법        | 설명                                          |
+| ----------- | --------------------------------------------- |
+| @Retention  | annotation의 Life Time이다.                   |
+| @Documented | 문서에도 annotation 정보가 표현된다.          |
+| @Target     | 적용할 위치를 결정한다.                       |
+| @Inherited  | 자식 클래스가 annotation을 상속 받을 수 있다. |
+| @Repeatable | 반복적으로 annotation을 선언할 수 있다.       |
 
-ㅇㅇㅇㅇ
+* #### Meta Annotation (English)
+
+| Syntax      | Contents                                                     |
+| ----------- | ------------------------------------------------------------ |
+| @Retention  | Specifies how the marked annotation is stored—Whether in code only, compiled into the class, or available at runtime through reflection. |
+| @Documented | Marks another annotation for inclusion in the documentation. |
+| @Target     | Marks another annotation to restrict what kind of Java elements the annotation may be applied to. |
+| @Inherited  | Marks another annotation to be inherited to subclasses of annotated class (by default annotations are not inherited to subclasses). |
+| @Repeatable | Specifies that the annotation can be applied more than once to the same declaration, since Java 8. |
+
+## 4. Declare Custom Annotation
+
+---
+
+* Annotation 은 사용자가 원하는 대로 커스터마이징하여 사용할 수 있다. 
+
+```java
+public @interface MyAnnotation {} 
+```
+
+
+
