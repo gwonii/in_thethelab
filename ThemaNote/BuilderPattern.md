@@ -1,8 +1,16 @@
-# Builder
+# Builder Pattern
 
 
 
-## 1. Builder Pattern
+## 1. Constructor Pattern
+
+---
+
+* 생성자에 매개변수가 많을 때 취해지는 3가지 방법으로 점층적 생성자 패턴, 빈즈 패턴, 빌더 패턴이 있다. 
+
+
+
+## 2. Builder Pattern
 
 ---
 
@@ -12,7 +20,7 @@
 
 빌더 패턴은 생성자에 들어갈 매개 변수가 많든 적든 차례차례 매개 변수를 받아들이고 모든 매개 변수를 받은 뒤에 이 변수들을 통합해서 한번에 사용한다. 
 
-## 2. Builder Pattern 을 사용하는 이유 
+## 3. Builder Pattern 을 사용하는 이유 
 
 ---
 
@@ -24,7 +32,7 @@
 
 
 
-## 2. Builder Pattern 유도하기 
+## 4. Builder Pattern 유도하기 
 
 ---
 
@@ -134,6 +142,14 @@ class User3 {
   private String address;
   private String woo;
   private String joo;
+    
+  User(Builder builder){
+	 this.name = builder.name;
+	 this.age = builder.age;
+	 this.address = builder.address;
+	 this.level = builder.level;
+	 this.money = builder.money;
+  }
 
   // 여기에 Builder class 를 만들어서 한번 감싸준다.
   static class Builder {
@@ -165,8 +181,8 @@ class User3 {
       return this;
     }
 
-    String getJoo() {
-      return joo;
+    User build() {
+      return new User(this);
     }
   }
 }
@@ -174,16 +190,30 @@ class User3 {
 
 #### 사용하기
 
-```
+```java
 public static void main(String[] args){
     User3.Builder builder = new User3.Builder("Tom",42);
     builder.address("suwon");
     builder.joo("hoho");
     builder.woo("haha");
+    
+    User3 user = builder.build();
 }
 ```
 
+또는 
 
+```java
+public static void main(String[] args){
+    User3 user2 = new User3.Builder("Tom",42);
+    .address("suwon");
+    .joo("hoho");
+    .woo("haha");
+    .build();
+}
+```
+
+> 메소드 체인 호출을 통해 자기 자신의 참조를 반환하는 방법 또한 가능하다. 
 
 ## 단어 정리하기 
 
