@@ -96,3 +96,8 @@
   ```
 
 * 위 명령어를 이용해서 지금까지 brach가 무엇을 가리키고 어떻게 갈라져 왔는지 파악할 수 있다. 
+
+
+
+> 출처 [https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EB%B8%8C%EB%9E%9C%EC%B9%98%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80](https://git-scm.com/book/ko/v2/Git-브랜치-브랜치란-무엇인가)
+
