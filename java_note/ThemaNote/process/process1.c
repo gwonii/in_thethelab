@@ -14,12 +14,15 @@ int main() {
 
   pid = fork();			// 프로세스 생성 
 
+  printf("pid의 값은 : %d\n", pid);				// 기본적으로 처음의 pid 값은 양수의 값을
+ 												// 가지고 있음  
+
   if(pid > 0) {
     int status;
     wait(&status);
     printf("status: %d\n", status);
      	
-	for(i = 0; i < 30; ++i) {
+	for(i = 0; i < 3; ++i) {
 	  printf("parent process... \n");
 	  sleep(1);
 	}
