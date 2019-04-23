@@ -14,7 +14,6 @@ void *foo(void *arg) {
 int main() {
 	pthread_t thread;
 	pthread_create(&thread, NULL, foo, NULL);
-	// pthread_join(thread, NULL);
 	pthread_detach(thread);
 
 	for (int i = 0; i < 5; ++i) {

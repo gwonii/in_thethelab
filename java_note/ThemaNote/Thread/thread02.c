@@ -1,4 +1,3 @@
-> cat thread3.c
 
 // 프로세스 내의 스레드는 환경을 공유한다.
 //  => 같은 주소 공간을 사용한다.
@@ -7,7 +6,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-int thread_count = 1;
+int thread_count = 10;
 
 int sum = 0;
 void *foo(void *arg) {
@@ -37,7 +36,6 @@ int main(int argc, char* argv[]) {
 	for (i = 0 ; i < thread_count ; ++i) {
 		pthread_join(thread[i], NULL);
 	}
-
 	printf("sum: %d\n", sum);
 	free(thread);
 }
