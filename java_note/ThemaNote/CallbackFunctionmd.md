@@ -20,6 +20,3 @@ function callbackTest(callback){
 callbackTest(greeting);
 ```
 
-
-
-# 

@@ -25,7 +25,7 @@
 ArrayList<TYPE> list = new ArrayList<TYPE>();
 ```
 
-## 3. ArrayList Method\
+## 3. ArrayList Method
 
 ---
 
@@ -34,6 +34,30 @@ ArrayList<TYPE> list = new ArrayList<TYPE>();
 | 삽입 | list.add    | list 타입에 맞는 항목을 추가한다. |
 | 수정 | list.set    | list 타입에 맞는 항목을 수정한다. |
 | 삭제 | list.remove | list 타입에 맞는 항목을 제거한다. |
+
+## 4. 예제
+
+```java
+public class Main {
+
+  public static void main (String[] args){
+    ArrayList<Stirng> list = new ArrayList<Stirng>;
+    
+    list.add("hi");
+    list.add("hello");
+    list.add("안녕");
+    
+    for(int i = 0; i < list.size(); i++){
+      System.out.println(list.get(i));
+    }
+  }
+}
+```
+
+| 용도                    | 문법        | 설명                                |
+| ----------------------- | ----------- | ----------------------------------- |
+| 리스트의 값 반환        | list.get(i) | list의 해당 인덱스의 값을 반환한다. |
+| 리스트의 전체 길이 반환 | list.size() | list의 전체 길이의 값을 반환한다.   |
 
 
 
