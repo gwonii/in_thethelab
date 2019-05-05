@@ -1,9 +1,7 @@
 
-//#include <iostream>
-#include <stdio.h>
+#include <iostream>
 
-
-//using namespace std;
+using namespace std;
 
 int main() {
 
