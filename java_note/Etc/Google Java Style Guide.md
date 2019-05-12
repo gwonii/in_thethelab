@@ -64,7 +64,7 @@
 
 
 
-### 4. Formatiing 
+### 4. Formating 
 
 ---
 

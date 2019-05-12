@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <string.h>
+
 
 // 주소 : 192.168.56.106
 
@@ -38,15 +40,22 @@ int main() {
 
 								while(1) {
 												char buf[128];
+												char message[128] = "hello world";
 												int ret = read(sock, buf, sizeof buf);
-												if (ret <= 0) {
+											//	if (ret <= 0) {
 																//break;
+											//	}
+
+                        if(strcmp (buf,  "print\0")) {
+                          write(sock, message, ret); 
 												}
 
-												write(sock, buf, ret);
+												//write(sock, buf, ret);
+
+								  
 								}
 								close(sock);
 				}
-				//close(sd);
+				close(sd);
 }
 

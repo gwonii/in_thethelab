@@ -16,7 +16,7 @@ int main() {
 
 	struct sockaddr_in saddr = {0,};
 	saddr.sin_family = AF_INET;
-	saddr.sin_addr.s_addr = inet_addr("192.168.56.102");
+	saddr.sin_addr.s_addr = inet_addr("192.168.56.106");
 	saddr.sin_port = htons(5000);
 
 	if(connect(sock, (struct sockaddr *)&saddr, sizeof saddr) == -1) {
@@ -27,10 +27,10 @@ int main() {
 	char buf[128];
 	while(1) {
 
-	  int ret = read(0, buf, sizeof buf);
-		write(sock, buf, ret);
+	  //int ret = read(0, buf, sizeof buf);
+	  //write(sock, buf, ret);
 
-		ret = read(sock, buf, sizeof buf);
+		int ret = read(sock, buf, sizeof buf);
 		if(ret <= 0) {
       break;
 		}
