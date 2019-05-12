@@ -39,7 +39,7 @@
 
 
 
-![virtual_memory](..\virtual_memory.png)
+![virtual_memory](..\img\virtual_memory.png)
 
 * 프로세스를 실행하기 위해서는 데이터를 저장시켜놓을 메모리 공간이 필요하다. 하지만 물리메모리는 물리적 한계가 있기 때문에, 물리 메모리를 직접 사용하기전에 가상메모리를 먼저 사용한 후 가상메모리에 저장되어 있는 정보들을 물리 메모리에 매칭시켜 사용한다. 
 
@@ -47,7 +47,7 @@
 
 #### 3.4.1 순서 
 
-![virtual_memory2](..\virtual_memory2.png)
+![virtual_memory2](.\img\virtual_memory2.png)
 
 1. 실행시키고자 하는 프로세스들을 **페이징** 과정을 수행한다. 
 
