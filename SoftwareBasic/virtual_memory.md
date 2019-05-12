@@ -125,7 +125,7 @@
   - ram에서는 현재 직접 사용하고 있지 않는 데이터에 대해서는 스왑을 통해 하드디스크에 저장시켜 놓는다. 그러다 필요할 때가 되면 다시 하드디스크에서 정보를 찾아가 불러온다. 
   - 이렇게 cpu는 ram을 메모리 공간으로 우선적으로 사용하고 ram이 보조적으로 하드디스크를 사용한다. 그렇다 보니 ram의 속도가 월등히 높은 것이다. 
 
-  ![cpu구조](img\cpu구조.jpg)
+  ![cpu구조](https://github.com/gwonii/in_thethelab/blob/master/SoftwareBasic/img/cpu구조.jpg)
 
   
 
