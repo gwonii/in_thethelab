@@ -47,7 +47,7 @@
 
 #### 3.4.1 순서 
 
-![virtual_memory2](.\img\virtual_memory2.png)
+![virtual_memory2](img/virtual_memory2.png)
 
 1. 실행시키고자 하는 프로세스들을 **페이징** 과정을 수행한다. 
 
