@@ -39,7 +39,7 @@
 
 
 
-![virtual_memory](C:\Users\hoho\Desktop\thethelab\in_thethelab\SoftwareBasic\img\virtual_memory.png)
+![virtual_memory](img\virtual_memory.png)
 
 * 프로세스를 실행하기 위해서는 데이터를 저장시켜놓을 메모리 공간이 필요하다. 하지만 물리메모리는 물리적 한계가 있기 때문에, 물리 메모리를 직접 사용하기전에 가상메모리를 먼저 사용한 후 가상메모리에 저장되어 있는 정보들을 물리 메모리에 매칭시켜 사용한다. 
 
@@ -47,7 +47,7 @@
 
 #### 3.4.1 순서 
 
-![virtual_memory2](C:\Users\hoho\Desktop\thethelab\in_thethelab\SoftwareBasic\img\virtual_memory2.png)
+![virtual_memory2](img\virtual_memory2.png)
 
 1. 실행시키고자 하는 프로세스들을 **페이징** 과정을 수행한다. 
 
@@ -125,7 +125,7 @@
   - ram에서는 현재 직접 사용하고 있지 않는 데이터에 대해서는 스왑을 통해 하드디스크에 저장시켜 놓는다. 그러다 필요할 때가 되면 다시 하드디스크에서 정보를 찾아가 불러온다. 
   - 이렇게 cpu는 ram을 메모리 공간으로 우선적으로 사용하고 ram이 보조적으로 하드디스크를 사용한다. 그렇다 보니 ram의 속도가 월등히 높은 것이다. 
 
-  ![cpu구조](C:\Users\hoho\Desktop\thethelab\in_thethelab\SoftwareBasic\img\cpu구조.jpg)
+  ![cpu구조](img\cpu구조.jpg)
 
   
 
