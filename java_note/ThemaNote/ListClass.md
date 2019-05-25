@@ -77,10 +77,28 @@ oracle api 참조
 
 * array 와 list의 형식을 조합 
 
+일반적인 배열을 선언해서 사용하게 된다면 인덱스를 다 채우거나 인덱스를 다 못채울 수도 있는데 이러한 경우 인덱스가 가득찼다면 더 이상 값을 넣지 못할 것이다. 인덱스가 남는다면 메모리가 낭비되는 현상이 일어난다. 
+
+이러한 문제를 해결하기 위해 java에서는 ArrayList class를 제공하고 있다. 
+
+#### 기본 배열은 처음에 객체를 생성할 때 개수를 정해야 한다. 하지만 개수를 정하게 되면 이후의 유지,보수에 문제점이 발생할 수 있다. 그렇기 때문에 java에서는 ArrayList를 통해 이 문제를 해결하고 있는 것이다. 
+
 ### 2.2 장점 
 
 * 처음에 크기를 정하지 않고, 동적으로 크기가 변경된다. 
 * 특정 위치에 element를 추가/삭제 할 수 있다. 
+
+### 2.3 ArrayList 생성
+
+* ArrayList class로 리스트를 만들기 위해서는 리스트에 저장할 데이터의 타입을 정해야 한다.  또한 ArrayList class를 포함한 모든 자료구조 클래스는 레퍼런스 타입의 데이터만 저장할 수 있다. 
+
+```java
+List<TYPE> list = new ArrayList<TYPE>();
+```
+
+
+
+
 
 ### 2.3 변환 
 
@@ -134,8 +152,6 @@ for(String i : stringArray){
 }
 ```
 
-
-
 #### 일단 오늘은 ArrayList와 LinkedList 까지 알아보는 것으로 하겠습니당. 
 
 
@@ -143,8 +159,30 @@ for(String i : stringArray){
 
 
 > List 클래스를 기반으로 생겨난 클래스들은 Collection 인터페이스에 약속한 기능을 구현하고 있다. 
->
-> 
+
+### list 사용방법 
+
+```java
+List<Stirng> stringList = new ArrayList<>();
+list.add("one");
+list.add("two");
+
+(1)
+Iterator iterator = stringList.iterator();
+while(iterator.hasnext()){
+    String next = iterator.next();
+}
+
+(2)
+for(String next : stringList){
+    ~~~
+}
+
+(3)
+for(int i = 0; i < stringList.size(); i++){
+    String next = stringList.get(i);
+}
+```
 
 
 
