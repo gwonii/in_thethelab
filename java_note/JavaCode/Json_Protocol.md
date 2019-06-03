@@ -3,22 +3,22 @@
 ```java
 public class Car {
 
-  private String carName;
-  private String carCategory;
-  private int carNum;
+  private String name;
+  private String category;
+  private int num;
 
-  Car(String carName, String carCategory, int carNum){
-    this.carName = carName;
-    this.carCategory = carCategory;
-    this.carNum = carNum;
+  Car(String name, String category, int num){
+    this.name = name;
+    this.category = category;
+    this.num = num;
   }
 
   @Override
   public String toString() {
     return "Car{" +
-        "carName='" + carName + '\'' +
-        ", carCategory='" + carCategory + '\'' +
-        ", carNum=" + carNum +
+        "name='" + name + '\'' +
+        ", category='" + category + '\'' +
+        ", num=" + num +
         '}';
   }
 }
@@ -30,69 +30,67 @@ public class Car {
 # Server
 
 ```java
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class GsonServer {
-  
+
   public static void main(String[] args) {
 
-    try {
-      ServerSocket serverSocket = new ServerSocket();
+    try (ServerSocket serverSocket = new ServerSocket()) {
       serverSocket.bind(new InetSocketAddress("192.168.11.79", 5500));
       Socket socket = serverSocket.accept();
 
-      InputStream is = socket.getInputStream();
-      DataInputStream disLength = new DataInputStream(is);
+      try (InputStream is = socket.getInputStream();
+          DataInputStream disLength = new DataInputStream(is)) {
 
-      byte[] data = new byte[1024];
-      String message;
-      int count = 0;
+        byte[] data = new byte[1024];
+        String jsonToString;
+        int count = 0;
 
-      while (true) {
+        while (true) {
 
-        try {
-          int len = disLength.readInt();
+          try {
+            int len = disLength.readInt();
 
-          int ret = is.read(data, 0, len);
-          if (ret == -1) {
+            int ret = is.read(data, 0, len);
+            if (ret == -1) {
+              break;
+            }
+          } catch (EOFException e){
+            e.printStackTrace();
             break;
           }
-        } catch (SocketException e) {
-          System.out.println("소켓 입력 문제가 발생");
-          break;
+
+          try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+              DataInputStream dis = new DataInputStream(bis)) {
+
+            jsonToString = dis.readUTF();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            System.out.println(count + " : " + gson.fromJson(jsonToString, Car.class));
+            count++;
+          } catch (EOFException e){
+            e.printStackTrace();
+          }
         }
-
-        ByteArrayInputStream bis = new ByteArrayInputStream(data);
-        DataInputStream dis = new DataInputStream(bis);
-
-        message = dis.readUTF();
-
-        JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse(message);
-
-        String carName = element.getAsJsonObject().get("carName").getAsString();
-        String carCategory = element.getAsJsonObject().get("carCategory").getAsString();
-        int carNum = element.getAsJsonObject().get("carNum").getAsInt();
-
-        Car car = new Car(carName, carCategory, carNum);
-
-        System.out.println(count + " : " + car.toString());
-        count++;
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 }
+
 ```
 
 # Client
@@ -113,35 +111,39 @@ public class GsonClient {
 
     Car car = new Car("dreamCar", "sportCar", 7777);
 
-    try {
-      Socket socket = new Socket();
+    try (Socket socket = new Socket()) {
       socket.connect(new InetSocketAddress("192.168.11.79", 5500));
-      OutputStream os = socket.getOutputStream();
-      DataOutputStream dosLength = new DataOutputStream(os);
 
-      Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-      //Gson basicGson = new Gson();
+      try (OutputStream os = socket.getOutputStream();
+          DataOutputStream dosLength = new DataOutputStream(os)) {
 
-      String prettyJson = prettyGson.toJson(car);
-      //String basicJson = basicGson.toJson(car);
+        Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+        //Gson basicGson = new Gson();
 
-      for (int i = 0; i < 100; i++) {
+        String prettyJson = prettyGson.toJson(car);
+        //String basicJson = basicGson.toJson(car);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(bos);
+        for (int i = 0; i < 100; i++) {
 
-        dos.writeUTF(prettyJson);
+          ByteArrayOutputStream bos = new ByteArrayOutputStream();
+          DataOutputStream dos = new DataOutputStream(bos);
 
-        byte[] buf = bos.toByteArray();
-        int len = bos.size();
+          dos.writeUTF(prettyJson);
 
-        dosLength.writeInt(len);
-        os.write(buf, 0, len);
+          byte[] buf = bos.toByteArray();
+          int len = bos.size();
+
+          dosLength.writeInt(len);
+          os.write(buf, 0, len);
+        }
+      } catch (IOException e){
+        e.printStackTrace();
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 }
+
 ```
 
