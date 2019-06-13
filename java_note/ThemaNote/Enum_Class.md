@@ -158,7 +158,7 @@ public class Shoes {
 
 1. enum 형 객체를 만들어서 값을 가져온다.
 
-   ex) Type.WALKING
+   ex) Type.WALKING	// enum 클래스는 객체를 만들 수 없다. 
 
 2.  valueOf() 메소드를 이용해서 가져온다.
 
@@ -190,6 +190,9 @@ public class Shoes {
         for(Type type : Type.values()){
             System.out.println(type.getName());
         }
+    
+    System.out.println(type.WALKING.getName());	// 이렇게 하나의 요소만 사용할 수도 있다. 
+    
     }
 }
 ```
@@ -261,3 +264,138 @@ public enum Direction {
 
 > 이런 식으로 enum 클래스 내에서 추상 메소드를 선언하고 enum 상수마다 메소드를 정의할 수 있다. 
 
+
+
+### 3. Enum의 장점 
+
+1. 문자열과 비교해, IDE의 적극적인 지원을 받을 수 있다. 
+   * 자동완성, 오타검증, 텍스트 리펙토링 등등 
+2. 허용 가능한 값들을 제한할 수 있다. 
+3. **리팩토리시 변경 범위가 최소화**된다. 
+   * 내용의 추가가 필요하더라도, Enum 코드외에 수정할 필요가 없다. 
+
+* C/C++ 의 경우 Enum이 결국 int값을 갖고 있지만, Java의 Enum은 완전한 기능을 갖춘 클래스이다. 
+
+#### 3.1 데이터들 간의 연관관계 표현
+
+#### Enum 사용 전 
+
+* DB 테이블을 관리하기 위하여 만든 class 
+
+```java
+public class LegacyCase {
+    public String toTable1Value(String originValue){
+        if("Y".equals(originValue)){
+            return "1";
+        } else {
+            return "2";
+        }
+    }
+    
+    public String toTable2Value(String originValue){
+        if("Y".equals(originValue)){
+            return true;
+        } else{
+            return false;
+        }
+    }
+}
+```
+
+> 문제점 : origin의 테이블 값은 "Y" , "N" 으로 표현되어 있는데 DB의 테이블 1, 2 의 값은 다르게 표현되어 있다. (table1은 "1" , "0"  table2는 true, false)
+>
+> 그렇기 때문에 origin의 값에 따라 table의 값을 정해주는 클래스가 별도로 필요했다. 그렇기에 위의 클래스를 만들어 사용하게 된 것이다. 
+
+위 처럼 사용하면 기능상에는 문제가 없지만 가독성이 떨어지는 문제가 생긴다. 개발자는 전체 코드를 보지 않으면 "Y"가 "1" , false와 동일하다는 확신을 할 수 가 없다. 
+
+그리고 불필요한 메소드를 하게된다. 만약 origin의 값과 table의 값이 동일하게 표현되어 있다면 위 class처럼 값을 매기는 메소드를 따로 만들 필요가 없기 때문이다. 
+
+
+
+#### Enum 사용 후 
+
+```java
+public enum TableStatus {
+    Y("1", true),
+    N("0", false);
+    
+    private String table1Value;
+    private boolean table2Value;
+    
+    TableStatus(String table1Value, boolean table2Value){
+        this.table1Value = table1Value;
+        this.table2Value = table2Value;
+    }
+    
+    public String getTable1Value() {
+        return table1Value;
+    }
+    public boolean getTable2Value() {
+        return table2Value;
+    }
+}
+```
+
+> enum을 이용하여 Y , "1", true를 하나로 묶었다. 그리고 추가 타입이 필요한 경우 enum의 상수와 get메소드만 추가하면 된다. 
+>
+> 만약 lombok의 @Getter을 사용한다면 enum의 get 메소드까지 제거가 되어 더울 깔끔한 코드가 된다. 
+
+#### 3.2 상태와 행위를 한 곳에서 관리 
+
+ex) DB에 저장된 code의 값이 "CALC_A" 일 경우엔 값을 그대로, "CALC_B"일 경우엔 *10을 한 값을 전달해야 한다면? 
+
+#### Enum 사용 전 
+
+```java
+public class LegacyCalculator {
+    public static long calculate(String code, long originValue){
+        
+        if("CALC_A".equals(code)){
+            return originValue;
+        } else if("CALC_B",equals(code)){
+            return originValue * 10;
+        }
+    }
+}
+```
+
+```java
+public void codeCalculator() {
+    String code = selectCode();
+    long originValue = 1000L;
+    long result = LegacyCalculator.calculate(code,originValue);
+}
+```
+
+> 이런 식으로 calculate 메소드를 static으로 만들어 어디서나 사용할 수 있게 만들었다. 이런 코드를 사용하면 원하는 상황에 따라 다른 메소드를 수행할 수 있도록 만들 수 있다. 
+>
+> 하지만 code값과 originValue를 다른 곳에서 가져온다는 것에서 문제가 있다. 
+
+#### Enum 사용 후 
+
+```java
+public enum CalculatorType {
+    CAL_A{
+    	@Override
+    	public long calculate(long value){
+            return value;
+    	}
+    }
+    CAL_B{
+        @Override
+        public long calculate(long value){
+            return value * 10;
+        }
+    }
+     
+    public abstract long calculate(long value);
+}
+```
+
+> java 8 이전에는 이렇게 추상메소드를 사용하며 enum에 각각의 메소드를 사용했다. 하지만 java8 이후부터는 파라미터에 메소드를 넣을 수 있게되면서 파라미터에 메소드를 넣는 방식으로 사용할 수 있다. (이것은 나중에 정리하는 것으로 하자)
+
+#### 3. 3 데이터 그룹 관리 
+
+#### 3.4 관리 주체를 DB에서 객체로 
+
+3, 4 번은 나중에 또 정리를 하도록 하자.. 
