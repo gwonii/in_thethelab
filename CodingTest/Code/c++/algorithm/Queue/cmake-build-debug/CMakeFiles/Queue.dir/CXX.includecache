@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/hoho/Desktop/Programming/Programming/CodingTest/Code/c++/algorithm/Queue/main.cpp
+iostream
+-
+string
+-
+queue
+-
+
