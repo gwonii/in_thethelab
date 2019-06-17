@@ -1,0 +1,3 @@
+C:/Users/hoho/Desktop/Programming/Programming/CodingTest/Code/c++/Backjun/10799/cmake-build-debug/CMakeFiles/10799.dir
+C:/Users/hoho/Desktop/Programming/Programming/CodingTest/Code/c++/Backjun/10799/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/hoho/Desktop/Programming/Programming/CodingTest/Code/c++/Backjun/10799/cmake-build-debug/CMakeFiles/rebuild_cache.dir
